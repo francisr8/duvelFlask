@@ -9,7 +9,7 @@ def respond():
     # Retrieve the name from url parameter
     #name = request.args.get("refresh", None)
     response = {}
-    response["MESSAGE"] = initialize()
+    response["MESSAGE"] = "IDK"
 
     return jsonify(response)
 
