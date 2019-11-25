@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
-from webbot import Browser
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 app = Flask(__name__)
 
 
@@ -10,7 +11,7 @@ def respond():
     # Retrieve the name from url parameter
     #name = request.args.get("refresh", None)
     response = {}
-    response["MESSAGE"] = read()
+    response["MESSAGE"] = initialize()
 
     return jsonify(response)
 
@@ -20,17 +21,19 @@ def index():
 
 
 def initialize():
-    try:
+    user_name = "francis.rousseau32@gmail.com"
+    password = "Louise999"
+    driver = webdriver.Chrome()
+    driver.get("https://www.facebook.com")
+    element = driver.find_element_by_id("email")
+    element.send_keys(user_name)
+    element = driver.find_element_by_id("pass")
+    element.send_keys(password)
+    element.send_keys(Keys.RETURN)
+    print(driver.title)
+    return driver.title
 
-        return "HEY FIJNE DAG"
-    except:
-        print("Error")
-        return "Er is een fout gebeurd"
 
-def read():
-    web = Browser()
-    web.go_to('http://sales.duvel.com/Account/Login.aspx')
-    return web.get_title()
 
 
 if __name__ == '__main__':
