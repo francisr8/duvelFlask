@@ -22,12 +22,9 @@ def index():
 
 
 def initialize():
-    GOOGLE_CHROME_BIN = "/app/.apt/usr/bin/google-chrome"
-    CHROMEDRIVER_PATH = "/app/.chromedriver/bin/chromedriver"
-    chrome_options = Options()
-    chrome_options.binary_location = GOOGLE_CHROME_BIN
-    chrome_options.add_argument('--disable-gpu')
-    chrome_options.add_argument('--no-sandbox')
+    #GOOGLE_CHROME_BIN = "/app/.apt/usr/bin/google-chrome"
+    #CHROMEDRIVER_PATH = "/app/.chromedriver/bin/chromedriver"
+    
     driver = webdriver.PhantomJS()
     user_name = "francis.rousseau32@gmail.com"
     password = "Louise999"
