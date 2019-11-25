@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.chrome.options import Options
 app = Flask(__name__)
 
 
@@ -21,9 +22,15 @@ def index():
 
 
 def initialize():
+    GOOGLE_CHROME_BIN = "/app/.apt/usr/bin/google-chrome"
+    CHROMEDRIVER_PATH = "/app/.chromedriver/bin/chromedriver"
+    chrome_options = Options()
+    chrome_options.binary_location = GOOGLE_CHROME_BIN
+    chrome_options.add_argument('--disable-gpu')
+    chrome_options.add_argument('--no-sandbox')
+    driver = webdriver.Chrome(executable_path=CHROMEDRIVER_PATH, chrome_options=chrome_options)
     user_name = "francis.rousseau32@gmail.com"
     password = "Louise999"
-    driver = webdriver.Chrome()
     driver.get("https://www.facebook.com")
     element = driver.find_element_by_id("email")
     element.send_keys(user_name)
