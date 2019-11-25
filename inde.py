@@ -28,7 +28,7 @@ def initialize():
     chrome_options.binary_location = GOOGLE_CHROME_BIN
     chrome_options.add_argument('--disable-gpu')
     chrome_options.add_argument('--no-sandbox')
-    driver = webdriver.Chrome(executable_path=CHROMEDRIVER_PATH, chrome_options=chrome_options)
+    driver = webdriver.PhantomJS()
     user_name = "francis.rousseau32@gmail.com"
     password = "Louise999"
     driver.get("https://www.facebook.com")
