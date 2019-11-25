@@ -106,5 +106,5 @@ virtualenv==16.4.1
 wcwidth==0.1.7
 webcolors==1.8.1
 webencodings==0.5.1
-Werkzeug==0.14.1
+Werkzeug==0.15.3
 widgetsnbextension==3.5.1
