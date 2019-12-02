@@ -17,7 +17,7 @@ def index():
 
 
 def initialize():
-    browser = webdriver.Chrome()
+    browser = webdriver.Chrome(executable_path='chromedriver')
     browser.get("http://www.facebook.com")
     username = browser.find_element_by_id("email")
     password = browser.find_element_by_id("pass")
