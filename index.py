@@ -28,9 +28,10 @@ class Info:
 
 @app.route('/refresh/', methods=['GET'])
 def respond():
-    response = {}
-    response["MESSAGE"] = initialize()
-    return jsonify(response)
+    #response = {}
+    #response["MESSAGE"] = initialize()
+
+    return jsonify(initialize())
 
 @app.route('/')
 def index():
@@ -62,8 +63,8 @@ def initialize():
     array2 = []
     array2.append(info.__dict__)
     array2.append(info.__dict__)
-    s = json.dumps(array2)
-    return s
+    #s = json.dumps(array2)
+    return array2
 
 
 
