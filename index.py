@@ -7,13 +7,8 @@ app = Flask(__name__)
 
 @app.route('/refresh/', methods=['GET'])
 def respond():
-
-
-    # Retrieve the name from url parameter
-    #name = request.args.get("refresh", None)
     response = {}
     response["MESSAGE"] = initialize()
-
     return jsonify(response)
 
 @app.route('/')
@@ -22,20 +17,14 @@ def index():
 
 
 def initialize():
-    #GOOGLE_CHROME_BIN = "/app/.apt/usr/bin/google-chrome"
-    #CHROMEDRIVER_PATH = "/app/.chromedriver/bin/chromedriver"
-    
-    driver = webdriver.PhantomJS()
-    user_name = "francis.rousseau32@gmail.com"
-    password = "Louise999"
-    driver.get("https://www.facebook.com")
-    element = driver.find_element_by_id("email")
-    element.send_keys(user_name)
-    element = driver.find_element_by_id("pass")
-    element.send_keys(password)
-    element.send_keys(Keys.RETURN)
-    print(driver.title)
-    return driver.title
+    browser = webdriver.Chrome()
+    browser.get("http://www.facebook.com")
+    username = browser.find_element_by_id("email")
+    password = browser.find_element_by_id("pass")
+    submit = browser.find_element_by_id("loginbutton")
+    username.send_keys("test")
+    password.send_keys("test")
+    submit.click()
 
 
 
