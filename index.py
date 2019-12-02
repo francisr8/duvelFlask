@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+import os
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
@@ -17,15 +18,14 @@ def index():
 
 
 def initialize():
-    browser = webdriver.Chrome(executable_path='chromedriver')
-    browser.get("http://www.facebook.com")
-    username = browser.find_element_by_id("email")
-    password = browser.find_element_by_id("pass")
-    submit = browser.find_element_by_id("loginbutton")
-    username.send_keys("test")
-    password.send_keys("test")
-    submit.click()
-
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+    chrome_options.add_argument("--no-sandbox")
+    driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+    driver.get("https://www.google.com")
+    print(driver.page_source)
 
 
 
