@@ -3,10 +3,28 @@ import os
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.by import By
 from selenium import webdriver
+import json
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
 app = Flask(__name__)
 
+class Info:
+    def __init__(self, uur, resnr, product, klantnaam, groep, mobiel, aantal, gids1, gids2, tapper, shop, opmerkingen, status, prijs, betaald):
+        self.uur = uur
+        self.resnr = resnr
+        self.product = product
+        self.klantnaam = klantnaam
+        self.groep = groep
+        self.mobiel = mobiel
+        self.aantal = aantal
+        self.gids1 = gids1
+        self.gids2 = gids2
+        self.tapper = tapper
+        self.shop = shop
+        self.opmerkingen = opmerkingen
+        self.status = status
+        self.prijs = prijs
+        self.betaald = betaald
 
 @app.route('/refresh/', methods=['GET'])
 def respond():
@@ -37,9 +55,13 @@ def initialize():
     select.select_by_value('2')
     web.find_element_by_id('ctl00_MainContent_ReportViewer1_ctl04_ctl00').click()
     web.implicitly_wait(1)
-    element = web.find_element(By.XPATH,
-                               "/html/body/div/span/div/table/tbody/tr[5]/td[3]/div/div[1]/div/table/tbody/tr/td/table/tbody/tr/td/table/tbody/tr/td/table/tbody/tr/td/table/tbody/tr[4]")
-    return element.text.replace("\n", ";").replace("  ", ";") + ";"
+    element = web.find_element(By.XPATH,"/html/body/div/span/div/table/tbody/tr[5]/td[3]/div/div[1]/div/table/tbody/tr/td/table/tbody/tr/td/table/tbody/tr/td/table/tbody/tr/td/table/tbody/tr[4]")
+    array = element.text.replace("  ", "\n").split("\n")
+    info = Info(array[0], array[1], array[2], array[3], array[4], array[5], array[6], array[7], array[8], array[9],
+                array[10], array[11], array[12], array[13], array[14])
+    s = json.dumps(info.__dict__)
+    return s
+
 
 
 if __name__ == '__main__':
