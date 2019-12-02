@@ -1,5 +1,7 @@
 from flask import Flask, request, jsonify
 import os
+from selenium.webdriver.support.ui import Select
+from selenium.webdriver.common.by import By
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
@@ -24,27 +26,20 @@ def initialize():
     chrome_options.add_argument("--disable-dev-shm-usage")
     chrome_options.add_argument("--no-sandbox")
     web = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
-    web.go_to('http://sales.duvel.com/Account/Login.aspx')
-    web.type('jana', into='email', id='loginName')
-    web.click('NEXT', tag='span')
-    test = "Hermans25"
-    web.type(test, into='password', id='password')
-    web.click('Log in', multiple=False)
-    web.click('Guides', multiple=False)
-    web.click('Planning', multiple=False)
-    web.click(id='ctl00_MainContent_ReportViewer1_ctl04_ctl03_ddValue')
-    print(web.exists('Achouffe'))
-    web.click("Duvel", tag='option')
-    web.click("View Report")
-    textT = ""
-    element = web.find_elements(xpath='/html/body/div/span/div/table/tbody/tr[5]/td[3]/div/div[1]/div/table/tbody/tr/td/table/tbody/tr/td/table/tbody/tr/td/table/tbody/tr/td/table/tbody/tr[' + str(5) + ']')
-    for i in element:
-        if i.text.replace("\n", "") == "  ":
-            textT += ";"
-        else:
-            textT += i.text.replace("\n", ";").replace("  ", ";") + ";"
-    return textT
-
+    web.get('http://sales.duvel.com/Account/Login.aspx')
+    web.find_element_by_id('MainContent_LoginUser_UserName').send_keys('jana')
+    web.find_element_by_id('MainContent_LoginUser_Password').send_keys('Hermans25')
+    web.find_element_by_id('MainContent_LoginUser_LoginButton').click()
+    web.find_element(By.XPATH, "/html/body/div[1]/div[1]/form/ul/li[4]/a").click()
+    web.find_element_by_id('LoginView_lnkPlanning').click()
+    web.find_element_by_id('ctl00_MainContent_ReportViewer1_ctl04_ctl03_ddValue').click()
+    select = Select(web.find_element_by_id("ctl00_MainContent_ReportViewer1_ctl04_ctl03_ddValue"))
+    select.select_by_value('2')
+    web.find_element_by_id('ctl00_MainContent_ReportViewer1_ctl04_ctl00').click()
+    web.implicitly_wait(1)
+    element = web.find_element(By.XPATH,
+                               "/html/body/div/span/div/table/tbody/tr[5]/td[3]/div/div[1]/div/table/tbody/tr/td/table/tbody/tr/td/table/tbody/tr/td/table/tbody/tr/td/table/tbody/tr[4]")
+    return element.text.replace("\n", ";").replace("  ", ";") + ";"
 
 
 if __name__ == '__main__':
