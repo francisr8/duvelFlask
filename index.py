@@ -23,9 +23,27 @@ def initialize():
     chrome_options.add_argument("--headless")
     chrome_options.add_argument("--disable-dev-shm-usage")
     chrome_options.add_argument("--no-sandbox")
-    driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
-    driver.get("https://www.google.com")
-    return  driver.title
+    web = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+    web.go_to('http://sales.duvel.com/Account/Login.aspx')
+    web.type('jana', into='email', id='loginName')
+    web.click('NEXT', tag='span')
+    test = "Hermans25"
+    web.type(test, into='password', id='password')
+    web.click('Log in', multiple=False)
+    web.click('Guides', multiple=False)
+    web.click('Planning', multiple=False)
+    web.click(id='ctl00_MainContent_ReportViewer1_ctl04_ctl03_ddValue')
+    print(web.exists('Achouffe'))
+    web.click("Duvel", tag='option')
+    web.click("View Report")
+    textT = ""
+    element = web.find_elements(xpath='/html/body/div/span/div/table/tbody/tr[5]/td[3]/div/div[1]/div/table/tbody/tr/td/table/tbody/tr/td/table/tbody/tr/td/table/tbody/tr/td/table/tbody/tr[' + str(5) + ']')
+    for i in element:
+        if i.text.replace("\n", "") == "  ":
+            textT += ";"
+        else:
+            textT += i.text.replace("\n", ";").replace("  ", ";") + ";"
+    return textT
 
 
 
