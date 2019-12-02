@@ -1,2 +1,2 @@
-web: gunicorn inde:app
+web: gunicorn index:app
 heroku ps:scale web=1
