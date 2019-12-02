@@ -59,7 +59,10 @@ def initialize():
     array = element.text.replace("  ", "\n").split("\n")
     info = Info(array[0], array[1], array[2], array[3], array[4], array[5], array[6], array[7], array[8], array[9],
                 array[10], array[11], array[12], array[13], array[14])
-    s = json.dumps(info.__dict__)
+    array2 = []
+    array2.append(info.__dict__)
+    array2.append(info.__dict__)
+    s = json.dumps(array2)
     return s
 
 
