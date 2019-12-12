@@ -56,7 +56,6 @@ def initialize():
     json = {}
     lengte = 0
     rows = web.find_elements(By.XPATH, "/html/body/div/span/div/table/tbody/tr[5]/td[3]/div/div[1]/div/table/tbody/tr/td/table/tbody/tr/td/table/tbody/tr/td/table/tbody/tr/td/table/tbody/tr")
-    print len(rows)
     for i in range(2, len(rows) + 1):
         subjson = {}
         element = web.find_element(By.XPATH,
