@@ -88,9 +88,7 @@ def initialize():
                 #array[10], array[11], array[12], array[13], array[14])
         #array2.append(info.__dict__)
 
-
-
-
+    web.quit()
     return json
 
 
