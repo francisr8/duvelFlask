@@ -84,7 +84,7 @@ def initialize():
             subjson["Gids1"] = array[7]
             subjson["Gids2"] = array[8]
             subjson["Tapper"] = array[9]
-            subjson["Shop"] = array[10]
+            subjson["ShopZ"] = array[10]
             subjson["Opmerkingen"] = array[11]
             subjson["Status"] = array[12]
             subjson["Prijs"] = array[13]
